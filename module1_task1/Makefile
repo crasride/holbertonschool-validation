@@ -2,7 +2,7 @@
 Publish=hugo
 
 build:
-	$(Publish)
+	$(Publish) -s -d dist/
 
 clean:
 	rm -r dist/*
