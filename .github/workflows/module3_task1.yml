@@ -16,7 +16,7 @@ jobs:
         run: |
           cd module3_task1/
           make lint
-      - name: Setup
+      - name: Setup tools
         run: |
           cd module3_task1/
           ./setup.sh
@@ -24,15 +24,15 @@ jobs:
         run: |
           cd module3_task1/
           make build
-      - name: post
+      - name: validate
         run: |
           cd module3_task1/
-          make POST_TITLE="Test Title" POST_NAME="Test-name" post
-      - name: Integration tests
+          make validate        
+      - name: integration tests
         run: |
           cd module3_task1/
           make integration-tests
-      - name: clean
+      - name: unit-tests
         run: |
           cd module3_task1/
-          make clean
+          make unit-tests
