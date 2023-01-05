@@ -9,11 +9,11 @@ clean: ## Remove all files from folder dist
 	rm dist/*
 
 lint: ## Lints the yaml file and shell
-	shellcheck setup.sh >/dev/null 2>&1 || echo "Lint Failed"
-	yamllint ./github-workflow.yml --no-warnings >/dev/null 2>&1 && echo OK
+	yamllint "$(readlink github-workflow.yml)" --no-warnings >/dev/null 2>&1 && echo OK
 	yq eval '.jobs.*.steps.[].name' ./github-workflow.yml | wc -l
 	yq eval '.jobs.*.steps.[].run' ./github-workflow.yml | grep -q 'make lint' && echo OK
 	yq eval '.jobs.*.steps.[].run' ./github-workflow.yml | grep -q 'make integration-test'
+	shellcheck setup.sh >/dev/null 2>&1 || echo "Lint Failed"
 
 integration-tests: ## Start the server and check the url localhost
 	hugo
