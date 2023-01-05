@@ -12,7 +12,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: cd in to correct directory
+      - name: cd the directory
         run: |
           cd module3_task0
           make help
