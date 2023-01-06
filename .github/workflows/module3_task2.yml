@@ -31,6 +31,7 @@ jobs:
         run: |
           cd module3_task2/
           make integration-tests
+          make validate
           make unit-tests
           make package
           make clean
