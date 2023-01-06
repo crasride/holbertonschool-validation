@@ -21,6 +21,10 @@ markdownlint: ## updated to lint the files README.md and DEPLOY.md
 	markdown README.md
 	markdown DEPLOY.md
 
+integration-tests: ## server and check the localhost
+	hugo
+	ls dist/
+
 package: ## creates archive
 	make build
 	zip awesome-website.zip dist/	
