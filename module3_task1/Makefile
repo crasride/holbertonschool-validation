@@ -11,10 +11,6 @@ clean: ## Remove all files from folder dist
 post: ## Create new post and using the sed command to modify the contents of a file.
 	$(Publish) new posts/$(POST_NAME).md
 	sed -i 's/title: .*/title: "$(POST_TITLE)"/' content/posts/$(POST_NAME).md
-# Overwrite the content of a text file without generating a new one (option -i)
-
-yamllint: ## Yamllint github workflow.
-	yamllint ./github-workflow.yml --no-warnings >/dev/null 2>&1 && echo OK
 
 lint: ## shellcheck setup
 	$(SHELLCHECK) setup.sh >/dev/null 2>&1 || echo "Lint Failed"
