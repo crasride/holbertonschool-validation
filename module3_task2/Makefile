@@ -30,6 +30,9 @@ unit-tests: ## Runs different makefile recipes
 	make build
 	make clean
 
+validate: ## Tests dir
+	pwd
+
 package: ## creates archive
 	make build
 	zip awesome-website.zip dist/	
