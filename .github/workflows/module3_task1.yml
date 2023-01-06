@@ -19,7 +19,7 @@ jobs:
       - name: Setup Hugo
         run: |
           cd module3_task1/
-          ./setup.sh
+          sudo ./setup.sh
       - name: build
         run: |
           cd module3_task1/
