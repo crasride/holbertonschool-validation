@@ -1,0 +1,34 @@
+name: module3_task1
+on:
+  push:
+    branches:
+      - main
+  schedule:
+    - cron: "0 0 * * *"
+
+jobs:
+  module3_task0:
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Install tools
+        run: |
+         cd module3_task1
+         sudo ./setup.sh
+      - name: lint
+        run: |
+          cd module3_task1/
+          make lint
+      - name: build
+        run: |
+          cd module3_task1/
+          make build
+      - name: post
+        run: |
+          cd module3_task1/
+          make POST_TITLE="Test Title" POST_NAME="Test-name" post
+      - name: clean
+        run: |
+          cd module3_task1/
+          make clean
