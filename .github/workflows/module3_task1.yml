@@ -15,7 +15,7 @@ jobs:
       - name: Install tools
         run: |
           cd module3_task1/
-          ./setup.sh
+          sudo ./setup.sh
       - name: lint
         run: |
           cd module3_task1/
