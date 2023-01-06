@@ -25,6 +25,11 @@ integration-tests: ## server and check the localhost
 	hugo
 	ls dist/
 
+unit-tests: ## Runs different makefile recipes
+	make POST_TITLE='TEST' POST_NAME='this-is-a-test' post
+	make build
+	make clean
+
 package: ## creates archive
 	make build
 	zip awesome-website.zip dist/	
