@@ -1,8 +1,7 @@
-name: module3_task1
+name: module3_task2
 on:
   push:
-    branches:
-      - main
+    branches: [main, master]
   schedule:
     - cron: "0 0 * * *"
 
@@ -12,26 +11,28 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: lint
-        run: |
-          cd module3_task1/
-          make lint
       - name: Setup Hugo
         run: |
-          cd module3_task1/
-          sudo ./setup.sh
+          cd module3_task2/
+          ./setup.sh
+      - name: lint
+        run: |
+          cd module3_task2/
+          make lint
       - name: build
         run: |
-          cd module3_task1/
+          cd module3_task2/
           make build
       - name: post
         run: |
-          cd module3_task1/
+          cd module3_task2/
           make POST_TITLE="Test Title" POST_NAME="Test-name" post
       - name: Integration tests
         run: |
-          cd module3_task1/
+          cd module3_task2/
+          make validate
           make integration-tests
+          make unit-tests
           make package
           make clean
       - name: archive build
