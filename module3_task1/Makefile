@@ -13,7 +13,7 @@ post: ## Create new post and using the sed command to modify the contents of a f
 	sed -i 's/title: .*/title: "$(POST_TITLE)"/' content/posts/$(POST_NAME).md
 
 lint: ## shellcheck setup
-	$(SHELLCHECK) setup.sh >/dev/null 2>&1 || echo "Lint Failed"
-
+	shellcheck setup.sh
+		
 help: ## Display the list of targets and their usage.
 	cat Makefile | grep '##' | tr -d '##' | head -n -1
