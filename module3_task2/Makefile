@@ -1,0 +1,31 @@
+# Define variables
+Publish=hugo
+SHELLCHECK=shellcheck
+
+build: ## Builds a new website
+	$(Publish)
+
+clean: ## Remove all files from folder dist
+	rm -r dist/*
+
+post: ## Create new post and using the sed command to modify the contents of a file.
+	$(Publish) new posts/$(POST_NAME).md
+	sed -i 's/title: .*/title: "$(POST_TITLE)"/' content/posts/$(POST_NAME).md
+
+lint: ## shellcheck setup
+	markdown README.md
+	markdown DEPLOY.md
+	$(SHELLCHECK) setup.sh >/dev/null 2>&1 || echo "Lint Failed"
+
+markdownlint: ## updated to lint the files README.md and DEPLOY.md
+	markdown README.md
+	markdown DEPLOY.md
+
+package: ## creates archive
+	make build
+	zip awesome-website.zip dist/	
+
+help: ## Display the list of targets and their usage.
+	cat Makefile | grep '##' | tr -d '##' | head -n -1
+
+
