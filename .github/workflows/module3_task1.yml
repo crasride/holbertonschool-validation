@@ -12,14 +12,14 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Install tools
-        run: |
-          cd module3_task1/
-          sudo ./setup.sh
       - name: lint
         run: |
           cd module3_task1/
           make lint
+      - name: Setup Hugo
+        run: |
+          cd module3_task1/
+          ./setup.sh
       - name: build
         run: |
           cd module3_task1/
@@ -28,6 +28,10 @@ jobs:
         run: |
           cd module3_task1/
           make POST_TITLE="Test Title" POST_NAME="Test-name" post
+      - name: Integration tests
+        run: |
+          cd module3_task1/
+          make integration-tests
       - name: clean
         run: |
           cd module3_task1/
