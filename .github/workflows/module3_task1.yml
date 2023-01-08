@@ -32,6 +32,7 @@ jobs:
         run: |
           cd module3_task1/
           make integration-tests
+          make unit-tests
       - name: clean
         run: |
           cd module3_task1/
