@@ -4,9 +4,9 @@
 
 - It is a compressed file that is the awesome-api binary and is 'dist directory'.
 
-- To unarchive the package
+# Syntax to unzip the zip package
   
-  Run the command: unzip awesome-website.zip
+  Run unzip awesome-website.zip
   
 - What are the commands to start and stop the application?
 
