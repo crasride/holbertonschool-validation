@@ -14,6 +14,10 @@ post: ## Create new post and using the sed command to modify the contents of a f
 
 lint: ## shellcheck setup
 	$(SHELLCHECK) setup.sh >/dev/null 2>&1 || echo "Lint Failed"
+	
+integration-tests: ## server and check the localhost
+	hugo
+	ls dist/
 		
 help: ## Display the list of targets and their usage.
 	cat Makefile | grep '##' | tr -d '##' | head -n -1
