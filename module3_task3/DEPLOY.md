@@ -4,10 +4,14 @@
 
 - It is a compressed file that is the awesome-api binary and is 'dist directory'.
 
-# Syntax to unzip the zip package
+- Syntax to unzip the zip package
   
   Run unzip awesome-website.zip
+
+- How to verify the version
   
+  Run git tag
+
 - What are the commands to start and stop the application?
 
   - Use Hugo server, sintax type hugo server
