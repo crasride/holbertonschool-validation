@@ -3,6 +3,10 @@
 - What is in the archive and how to unarchive it?
 
 - It is a compressed file that is the awesome-api binary and is 'dist directory'.
+
+- To unarchive the package
+  
+  Run the command: unzip awesome-website.zip
   
 - What are the commands to start and stop the application?
 
