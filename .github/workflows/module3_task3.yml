@@ -36,7 +36,7 @@ jobs:
           make package
           make clean
       - name: Release
-        uses: softprops/gh-release@v1
+        uses: softprops/action-gh-release@v1
         with:
           tag_name: 1.0.0
           files: |
