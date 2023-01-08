@@ -18,6 +18,14 @@ lint: ## shellcheck setup
 integration-tests: ## server and check the localhost
 	hugo
 	ls dist/
+	
+unit-tests: ## Runs different makefile recipes
+	make POST_TITLE='TEST' POST_NAME='this-is-a-test' post
+	make build
+	make clean
+
+validate: ## Tests dir
+	pwd
 		
 help: ## Display the list of targets and their usage.
 	cat Makefile | grep '##' | tr -d '##' | head -n -1
