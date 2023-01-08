@@ -6,11 +6,11 @@
 
 - Syntax to unzip the zip package
   
-  Run unzip awesome-website.zip
+  - Run unzip awesome-website.zip
 
 - How to verify the version
   
-  Run git tag
+  - Run git tag
 
 - What are the commands to start and stop the application?
 
