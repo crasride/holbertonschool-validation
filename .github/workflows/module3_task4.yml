@@ -1,0 +1,55 @@
+name: module3_task4
+on:
+  push:
+    branches:
+    	- main     	     
+  # https://www.freeformatter.com/cron-expression-generator-quartz.html
+  schedule:
+    - cron: "0 0 * * *"
+  # https://frontside.com/blog/2020-05-26-github-actions-pull_request/  
+  pull_request:
+    types: ['opened', 'edited', 'reopened', 'synchronize', 'ready_for_review']
+
+jobs:
+  module3_task0:
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup Hugo
+        run: |
+          cd module3_task4/
+          sudo ./setup.sh
+      - name: lint
+        run: |
+          cd module3_task4/
+          make lint
+      - name: build
+        run: |
+          cd module3_task4/
+          make build
+      - name: post
+        run: |
+          cd module3_task4/
+          make POST_TITLE="Test Title" POST_NAME="Test-name" post
+      - name: Integration tests
+        run: |
+          cd module3_task4/
+          make integration-tests
+          make validate
+          make unit-tests
+          make package
+          make clean
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: 1.0.1
+          files: |
+            module3_task4/awesome-website.zip
+            module3_task4/DEPLOY.md
+      - name: archive build
+        if: ${{ success()}}
+        uses: actions/upload-artifact@v3
+        with:
+          name: upload-package
+          path: module3_task4/awesome-website.zip
