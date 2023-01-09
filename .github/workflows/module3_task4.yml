@@ -1,8 +1,9 @@
 ---
 name: module3_task4
 on:
-  check_run:
-    types: [rerequested, completed]
+  workflow_run:
+    workflows: [Build]
+    types: [completed]
   push:
     branches:
       - main
@@ -13,6 +14,16 @@ on:
   pull_request:
   # types: [opened, reopened, edited, synchronize]
 jobs:
+  on-success:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    steps:
+      - run: echo 'The triggering workflow passed'
+  on-failure:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'failure' }}
+    steps:
+      - run: echo 'The triggering workflow failed'
   module3_task0:
     runs-on: ubuntu-18.04
     steps:
