@@ -5,8 +5,8 @@ on:
   push:
     # branches to consider in the event; optional, defaults to all
     branches:
-      - main
       - master
+      - main
   # pull_request event is required only for autolabeler
   pull_request:
     # Only following types are handled by the action, but one can default to all
@@ -46,3 +46,4 @@ jobs:
         # disable-autolabeler: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+...
