@@ -1,6 +1,10 @@
 ---
 name: module3_task4
 on:
+  workflow_run:
+    workflows: [Run Tests]
+    types:
+      - completed
   push:
     branches:
       - main
