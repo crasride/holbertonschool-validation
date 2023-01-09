@@ -3,7 +3,10 @@ name: module3_task4
 on:
   push:
     branches:
-      - main
+      - "main"
+      - "master"
+    tags:
+      - "v*.*.*"
   # https://www.freeformatter.com/cron-expression-generator-quartz.html
   schedule:
     - cron: "0 0 * * *"
