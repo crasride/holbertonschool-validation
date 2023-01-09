@@ -1,5 +1,10 @@
+---
 name: module3_task4
 on:
+  workflow_run:
+    workflows: [Run Tests]
+    types:
+      - completed
   push:
     branches:
       - main
@@ -51,3 +56,4 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: upload-package
+          path: module3_task4/awesome-website.zip
