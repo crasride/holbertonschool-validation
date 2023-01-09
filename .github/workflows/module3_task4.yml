@@ -1,9 +1,6 @@
 ---
 name: module3_task4
 on:
-  workflow_run:
-    workflows: [Build]
-    types: [completed]
   push:
     branches:
       - main
@@ -12,18 +9,8 @@ on:
     - cron: "0 0 * * *"
   # https://frontside.com/blog/2020-05-26-github-actions-pull_request/
   pull_request:
-  # types: [opened, reopened, edited, synchronize]
+    types: [opened, reopened, edited, ready_for_review]
 jobs:
-  on-success:
-    runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
-    steps:
-      - run: echo 'The triggering workflow passed'
-  on-failure:
-    runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.conclusion == 'failure' }}
-    steps:
-      - run: echo 'The triggering workflow failed'
   module3_task0:
     runs-on: ubuntu-18.04
     steps:
@@ -52,7 +39,7 @@ jobs:
           make validate
           make unit-tests
           make package
-          make clean
+          echo ${{github.ref}}
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
