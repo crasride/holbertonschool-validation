@@ -1,5 +1,5 @@
 ---
-name: Release Drafter
+name: release_drafter
 # https://github.com/release-drafter/release-drafter
 on:
   push:
