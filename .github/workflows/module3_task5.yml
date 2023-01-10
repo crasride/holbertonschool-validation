@@ -1,5 +1,5 @@
 ---
-name: module3_task4
+name: module3_task5
 on:
   push:
     branches:
@@ -19,23 +19,23 @@ jobs:
         uses: actions/checkout@v3
       - name: Setup Hugo
         run: |
-          cd module3_task4/
+          cd module3_task5/
           sudo ./setup.sh
       - name: lint
         run: |
-          cd module3_task4/
+          cd module3_task5/
           make lint
       - name: build
         run: |
-          cd module3_task4/
+          cd module3_task5/
           make build
       - name: post
         run: |
-          cd module3_task4/
+          cd module3_task5/
           make POST_TITLE="Test Title" POST_NAME="Test-name" post
       - name: Integration tests
         run: |
-          cd module3_task4/
+          cd module3_task5/
           make integration-tests
           make validate
           make unit-tests
@@ -46,8 +46,8 @@ jobs:
         with:
           tag_name: 1.0.1
           files: |
-            module3_task4/awesome-website.zip
-            module3_task4/DEPLOY.md
+            module3_task5/awesome-website.zip
+            module3_task5/DEPLOY.md
       - name: archive build
         if: ${{ success()}}
         uses: actions/upload-artifact@v3
