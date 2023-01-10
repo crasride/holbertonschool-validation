@@ -46,8 +46,8 @@ jobs:
         with:
           tag_name: 1.0.1
           files: |
-            module3_task5/awesome-website.zip
-            module3_task5/DEPLOY.md
+            module3_task4/awesome-website.zip
+            module3_task4/DEPLOY.md
       - name: archive build
         if: ${{ success()}}
         uses: actions/upload-artifact@v3
