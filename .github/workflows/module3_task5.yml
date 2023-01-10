@@ -54,7 +54,7 @@ jobs:
         with:
           name: upload-package
           path: module3_task5/awesome-website.zip
-      - name: Deploy to Netlify
+      - name: deploy
         uses: nwtgck/actions-netlify@v1.2
         with:
           publish-dir: './module3_task5/dist'
