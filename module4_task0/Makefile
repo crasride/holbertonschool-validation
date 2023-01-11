@@ -4,6 +4,7 @@ SHELLCHECK=shellcheck
 
 build: ## Builds a new website
 	$(Publish)
+	touch awesome-api
 
 clean: ## Remove all files from folder dist
 	rm -r dist/*
