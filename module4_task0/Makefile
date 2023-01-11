@@ -13,8 +13,7 @@ post: ## Create new post and using the sed command to modify the contents of a f
 	sed -i 's/title: .*/title: "$(POST_TITLE)"/' content/posts/$(POST_NAME).md
 
 lint: ## shellcheck setup
-	markdownlint README.md
-	markdownlint DEPLOY.md
+	markdownlint README.md DEPLOY.md
 	$(SHELLCHECK) setup.sh >/dev/null 2>&1 || echo "Lint Failed"
 
 markdownlint: ## updated to lint the files README.md and DEPLOY.md
