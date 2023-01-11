@@ -35,7 +35,7 @@ jobs:
           make POST_TITLE="Test Title" POST_NAME="Test-name" post
       - name: Integration tests
         run: |
-          cd module0_task0/
+          cd module4_task0/
           make integration-tests
           make validate
           make unit-tests
