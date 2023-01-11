@@ -1,0 +1,71 @@
+---
+name: module4_task0
+on:
+  push:
+    branches:
+      - main
+      - master
+  # https://www.freeformatter.com/cron-expression-generator-quartz.html
+  schedule:
+    - cron: "0 0 * * *"
+  # https://frontside.com/blog/2020-05-26-github-actions-pull_request/
+  pull_request:
+    types: [opened, reopened, edited, ready_for_review]
+jobs:
+  module4_task0:
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup Hugo
+        run: |
+          cd module4_task0/
+          sudo ./setup.sh
+      - name: lint
+        run: |
+          cd module4_task0/
+          make lint
+      - name: build
+        run: |
+          cd module4_task0/
+          make build
+      - name: post
+        run: |
+          cd module4_task0/
+          make POST_TITLE="Test Title" POST_NAME="Test-name" post
+      - name: Integration tests
+        run: |
+          cd module4_task0/
+          make integration-tests
+          make validate
+          make unit-tests
+          make package
+          echo ${{github.ref}}
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: 1.0.1
+          files: |
+            module4_task0/awesome-website.zip
+            module4_task0/DEPLOY.md
+      - name: archive build
+        if: ${{ success()}}
+        uses: actions/upload-artifact@v3
+        with:
+          name: upload-package
+          path: module4_task0/awesome-website.zip
+      - name: deploy
+        uses: nwtgck/actions-netlify@v1.2
+        with:
+          publish-dir: './module4_task0/dist'
+          production-branch: main
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          deploy-message: '🚀 Deployed on'
+          publish-message: '🎉 Published on'
+          enable-pull-request-comment: true
+          enable-commit-comment: true
+          overwrites-pull-request-comment: true
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+        timeout-minutes: 1
