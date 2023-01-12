@@ -17,13 +17,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: docker
+      - name: Setup
         run: |
           cd module4_task0/
-          docker run  --volume=$(pwd):/app --workdir=/app golang:1.15.8-buster /bin/bash
           ./setup.sh
-          make build
-          make package
       - name: build
         run: |
           cd module4_task0/
