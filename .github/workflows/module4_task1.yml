@@ -21,7 +21,6 @@ jobs:
         run: |
           cd module4_task1/
           make build-docker
-          make docker-run
           make build
           make lint
           make clean
