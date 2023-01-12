@@ -3,12 +3,12 @@ Publish=hugo
 SHELLCHECK=shellcheck
 
 build: ## Builds a new website
-	make run-docker _awesome
+	make run-docker _awesome _clean
 
 clean: ## Remove all files from folder dist
 	rm -r dist/*
 
-post: ## Create new post and using the sed command to modify the contents of a file.
+post: ## Create new post and using the sed command to modify the contents a file
 	$(Publish) new posts/$(POST_NAME).md
 	sed -i 's/title: .*/title: "$(POST_TITLE)"/' content/posts/$(POST_NAME).md
 
@@ -18,6 +18,9 @@ lint: ## shellcheck setup
 
 build-docker: ## builds docker
 	docker build -t awesome:build ./build
+
+docker-run: ## Build and list contents of website / Hugo in an interactive shell
+	docker run -i awesome:build sh -c "hugo;ls ./dist"
 
 _awesome:
 	touch awesome-api
@@ -39,7 +42,7 @@ validate: ## Tests dir
 
 package: ## creates archive
 	make build
-	zip awesome-website.zip dist/	
+	zip awesome-website.zip dist/
 
 help: ## Display the list of targets and their usage.
 	cat Makefile | grep '##' | tr -d '##' | head -n -1
