@@ -1,6 +1,3 @@
-# Define variables
-Publish=hugo
-SHELLCHECK=shellcheck
 
 build: ## Builds a new website
 	make run-docker docker_awesome docker_clean
@@ -8,13 +5,15 @@ build: ## Builds a new website
 docker_clean: ## Remove all files from folder dist
 	rm -r dist/*
 
+docker_awesome: ## Create file awesome-api
+	touch awesome-api
+
 post: ## Create new post and using the sed command to modify the contents a file
 	$(Publish) new posts/$(POST_NAME).md
 	sed -i 's/title: .*/title: "$(POST_TITLE)"/' content/posts/$(POST_NAME).md
 
 lint: ## shellcheck setup
 	markdownlint README.md DEPLOY.md
-	$(SHELLCHECK) setup.sh >/dev/null 2>&1 || echo "Lint Failed"
 
 build-docker: ## builds docker
 	docker build -t awesome:build ./build
@@ -22,22 +21,19 @@ build-docker: ## builds docker
 docker-run: ## Build and list contents of website / Hugo in an interactive shell
 	docker run -i awesome:build sh -c "hugo;ls ./dist"
 
-docker_awesome:
-	touch awesome-api
-
 markdownlint: ## updated to lint the files README.md and DEPLOY.md
 	markdownlint README.md DEPLOY.md
 
 integration-tests: ## server and check the localhost
 	make run-docker docker_unit-tests
 
-docker_integration-tests:
+docker_integration-tests: ## Create file coverage-integrations.out
 	touch coverage-integrations.out
 
 unit-tests: ## Runs different makefile recipes
 	make run-docker docker_unit-tests
 
-docker_unit-tests:
+docker_unit-tests: ## Create file coverage-units.out
 	touch coverage-units.out
 
 validate: ## Tests dir
