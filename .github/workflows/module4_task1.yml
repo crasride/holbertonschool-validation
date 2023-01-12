@@ -23,8 +23,6 @@ jobs:
           make build-docker
           make build
           make lint
-          make docker-run
-          macke package
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
