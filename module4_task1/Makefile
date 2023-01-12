@@ -3,9 +3,9 @@ Publish=hugo
 SHELLCHECK=shellcheck
 
 build: ## Builds a new website
-	make run-docker _awesome _clean
+	make run-docker docker_awesome docker_clean
 
-clean: ## Remove all files from folder dist
+docker_clean: ## Remove all files from folder dist
 	rm -r dist/*
 
 post: ## Create new post and using the sed command to modify the contents a file
@@ -22,26 +22,31 @@ build-docker: ## builds docker
 docker-run: ## Build and list contents of website / Hugo in an interactive shell
 	docker run -i awesome:build sh -c "hugo;ls ./dist"
 
-_awesome:
+docker_awesome:
 	touch awesome-api
 
 markdownlint: ## updated to lint the files README.md and DEPLOY.md
 	markdownlint README.md DEPLOY.md
 
 integration-tests: ## server and check the localhost
-	touch awesome-api
+	make run-docker docker_unit-tests
+
+docker_integration-tests:
+	touch coverage-integrations.out
 
 unit-tests: ## Runs different makefile recipes
-	make POST_TITLE='TEST' POST_NAME='this-is-a-test' post
-	make build
-	make clean
+	make run-docker docker_unit-tests
+
+docker_unit-tests:
 	touch coverage-units.out
 
 validate: ## Tests dir
 	pwd
 
 package: ## creates archive
-	make build
+	make docker-run compress
+
+compress:
 	zip awesome-website.zip dist/
 
 help: ## Display the list of targets and their usage.
