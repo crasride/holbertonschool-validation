@@ -24,7 +24,7 @@ markdownlint: ## updated to lint the files README.md and DEPLOY.md
 	markdownlint README.md DEPLOY.md
 
 integration-tests: ## server and check the localhost
-	ls
+	touch awesome-api
 
 unit-tests: ## Runs different makefile recipes
 	make POST_TITLE='TEST' POST_NAME='this-is-a-test' post
