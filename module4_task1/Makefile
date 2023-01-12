@@ -1,6 +1,6 @@
 
 build: ## Builds a new website
-	make run-docker docker_clean
+	make run-docker docker_awesome docker_clean
 
 docker_clean: ## Remove all files from folder dist
 	rm -r dist/*
@@ -12,8 +12,8 @@ post: ## Create new post and using the sed command to modify the contents a file
 	$(Publish) new posts/$(POST_NAME).md
 	sed -i 's/title: .*/title: "$(POST_TITLE)"/' content/posts/$(POST_NAME).md
 
-lint: ## shellcheck setup
-	markdownlint README.md DEPLOY.md
+lint: ## shellcheck setup markdownlint README.md DEPLOY.md
+	ls
 
 build-docker: ## builds docker
 	docker build -t awesome:build ./build
