@@ -3,7 +3,7 @@ Publish=hugo
 SHELLCHECK=shellcheck
 
 build: ## Builds a new website
-	$(Publish)
+	make run-docker _awesome
 
 clean: ## Remove all files from folder dist
 	rm -r dist/*
