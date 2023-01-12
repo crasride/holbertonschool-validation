@@ -4,7 +4,6 @@ SHELLCHECK=shellcheck
 
 build: ## Builds a new website
 	$(Publish)
-	touch awesome-api
 
 clean: ## Remove all files from folder dist
 	rm -r dist/*
@@ -19,6 +18,9 @@ lint: ## shellcheck setup
 
 build-docker: ## builds docker
 	docker build -t awesome:build ./build
+
+_awesome:
+	touch awesome-api
 
 markdownlint: ## updated to lint the files README.md and DEPLOY.md
 	markdownlint README.md DEPLOY.md
