@@ -17,9 +17,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Setup Hugo
+      - name: docker
         run: |
           cd module4_task0/
+          docker buid -t holberton .
+          docker run -dp 80:80 holberton
           ./setup.sh
       - name: build
         run: |
