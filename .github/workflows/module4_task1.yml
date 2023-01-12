@@ -17,6 +17,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+      - name: install hugo
+        run: ./module4_task1/setup.sh
       - name: docker
         run: |
           cd module4_task1/
