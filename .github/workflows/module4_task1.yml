@@ -21,6 +21,7 @@ jobs:
         run: |
           cd module4_task1/
           make build-docker
+          make docker-run
           make build
       - name: Release
         uses: softprops/action-gh-release@v1
