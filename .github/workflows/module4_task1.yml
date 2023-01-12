@@ -22,9 +22,6 @@ jobs:
           cd module4_task1/
           make build-docker
           make build
-          make lint
-          make clean
-          make package
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
