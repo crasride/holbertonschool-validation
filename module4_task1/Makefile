@@ -1,6 +1,6 @@
 
 build: ## Builds a new website
-	make run-docker docker_awesome docker_clean
+	make docker-run docker_awesome docker_clean
 
 docker_clean: ## Remove all files from folder dist
 	rm -r dist/*
