@@ -23,6 +23,8 @@ jobs:
           make build-docker
           make build
           make lint
+          make unit-tests
+          make integration-tests
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
@@ -43,7 +45,6 @@ jobs:
           production-branch: main
           github-token: ${{ secrets.GITHUB_TOKEN }}
           deploy-message: '🚀 Deployed on'
-          publish-message: '🎉 Published on'
           enable-pull-request-comment: true
           enable-commit-comment: true
           overwrites-pull-request-comment: true
