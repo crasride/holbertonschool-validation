@@ -1,6 +1,6 @@
 
 build: ## Builds a new website
-	make docker-run docker_awesome docker_clean
+	make docker_run docker_awesome docker_clean
 
 docker_clean: ## Remove all files from folder dist
 	rm -r dist/*
@@ -18,7 +18,7 @@ lint: ## shellcheck setup markdownlint README.md DEPLOY.md
 build-docker: ## builds docker
 	docker build -t awesome:build ./build
 
-docker-run: ## Build and list contents of website / Hugo in an interactive shell
+docker_run: ## Build and list contents of website / Hugo in an interactive shell
 	docker run -i awesome:build sh -c "hugo;ls ./dist"
 
 markdownlint: ## updated to lint the files README.md and DEPLOY.md
@@ -31,7 +31,7 @@ docker_integration-tests: ## Create file coverage-integrations.out
 	touch coverage-integrations.out
 
 unit-tests: ## Runs different makefile recipes
-	make run-docker docker_unit-tests
+	make docker_run  docker_unit-tests
 
 docker_unit-tests: ## Create file coverage-units.out
 	touch coverage-units.out
@@ -40,7 +40,7 @@ validate: ## Tests dir
 	pwd
 
 package: ## creates archive
-	make docker-run compress
+	make docker_run compress
 
 compress:
 	zip awesome-website.zip dist/
