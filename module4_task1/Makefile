@@ -25,7 +25,7 @@ markdownlint: ## updated to lint the files README.md and DEPLOY.md
 	markdownlint README.md DEPLOY.md
 
 integration-tests: ## server and check the localhost
-	make run-docker docker_unit-tests
+	make docker_run docker_unit-tests
 
 docker_integration-tests: ## Create file coverage-integrations.out
 	touch coverage-integrations.out
