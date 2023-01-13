@@ -31,7 +31,7 @@ docker_integration-tests: ## Create file coverage-integrations.out
 	touch coverage-integrations.out
 
 unit-tests: ## Runs different makefile recipes
-	make docker_run  docker_unit-tests
+	make docker_run docker_unit-tests
 
 docker_unit-tests: ## Create file coverage-units.out
 	touch coverage-units.out
