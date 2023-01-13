@@ -23,6 +23,8 @@ jobs:
           make build-docker
           make build
           make lint
+          make unit-tests
+          make integration-tests
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
