@@ -7,7 +7,6 @@ docker_clean: ## Remove all files from folder dist
 
 docker_awesome: ## Create file awesome-api
 	touch awesome-api
-	rmdir dist
 
 post: ## Create new post and using the sed command to modify the contents a file
 	$(Publish) new posts/$(POST_NAME).md
@@ -33,6 +32,7 @@ docker_integration-tests: ## Create file coverage-integrations.out
 
 unit-tests: ## Runs different makefile recipes make docker_run docker_unit-tests
 	touch coverage-units.out
+	mkdir dist
 
 docker_unit-tests: ## Create file coverage-units.out
 	touch coverage-units.out
