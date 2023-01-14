@@ -7,6 +7,7 @@ docker_clean: ## Remove all files from folder dist
 
 docker_awesome: ## Create file awesome-api
 	touch awesome-api
+	rmdir dist
 
 post: ## Create new post and using the sed command to modify the contents a file
 	$(Publish) new posts/$(POST_NAME).md
