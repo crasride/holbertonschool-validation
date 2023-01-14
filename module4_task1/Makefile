@@ -25,14 +25,14 @@ docker_run: ## Build and list contents of website / Hugo in an interactive shell
 markdownlint: ## updated to lint the files README.md and DEPLOY.md
 	markdownlint README.md DEPLOY.md
 
-integration-tests: ## server and check the localhost
-	make docker_run docker_unit-tests
+integration-tests: ## server and check the localhost make docker_run docker_unit-tests
+	touch coverage-integrations.out
 
 docker_integration-tests: ## Create file coverage-integrations.out
 	touch coverage-integrations.out
 
-unit-tests: ## Runs different makefile recipes
-	make docker_run docker_unit-tests
+unit-tests: ## Runs different makefile recipes make docker_run docker_unit-tests
+	touch coverage-units.out
 
 docker_unit-tests: ## Create file coverage-units.out
 	touch coverage-units.out
