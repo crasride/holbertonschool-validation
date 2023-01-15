@@ -17,4 +17,4 @@ RUN make clean
 RUN lint
 RUN build
 RUN unit-test
-Run integration-tests
+RUN integration-tests
