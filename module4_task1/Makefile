@@ -1,8 +1,8 @@
 
 build: ## Builds a new website
-	make docker_run docker_awesome docker_clean
+	make docker_run docker_awesome
 
-docker_clean: ## Remove all files from folder dist
+clean: ## Remove all files from folder dist
 	rm -r dist/*
 
 docker_awesome: ## Create file awesome-api
@@ -32,7 +32,6 @@ docker_integration-tests: ## Create file coverage-integrations.out
 
 unit-tests: ## Runs different makefile recipes make docker_run docker_unit-tests
 	touch coverage-units.out
-	mkdir dist
 
 docker_unit-tests: ## Create file coverage-units.out
 	touch coverage-units.out
