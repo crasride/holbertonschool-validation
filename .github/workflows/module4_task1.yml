@@ -23,6 +23,7 @@ jobs:
           make build-docker
           make build
           make lint
+          make package
           make unit-tests
           make integration-tests
       - name: Release
