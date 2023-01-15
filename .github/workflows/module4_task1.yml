@@ -22,9 +22,9 @@ jobs:
           cd module4_task1/
           make build-docker
           make build
-          make lint
           make unit-tests
           make integration-tests
+          make lint          
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
