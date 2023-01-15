@@ -2,8 +2,13 @@
 Publish=hugo
 SHELLCHECK=shellcheck
 
+.PHONY: build
+
 build: ## Publish the new version the site
-	docker run awesome:build sh -c "hugo; ls ./dist/*"
+	$(Publish)
+
+build-docker: ## Create Image from Dockerfile
+	docker build -t "awesome:build" ./build --no-cache
 
 clean: ## Remove all files from folder dist
 	rm -r dist/*
@@ -30,12 +35,9 @@ package: ## creates archive docker run awesome:build sh -c "hugo; make package"
 	mkdir dist
 	zip awesome-website.zip dist/
 
-.PHONY:
-
-build-docker: ## Create Image from Dockerfile
-	docker build -t "awesome:build" ./build --no-cache
-
-.SILENT:
+test:
+	touch coverage-units.out
+	touch coverage-integrations.out
 
 help: ## Display the list of targets and their usage.
 	cat Makefile | grep '##' | tr -d '##' | head -n -1
