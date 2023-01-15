@@ -12,4 +12,9 @@ RUN apt install ./hugo.deb
 RUN rm ./hugo.deb
 # for test intranet which go hugo golangci-lint
 RUN rm -rf /usr/local/go
-#
+# test make
+RUN make clean
+RUN lint
+RUN build
+RUN unit-test
+Run integration-tests
