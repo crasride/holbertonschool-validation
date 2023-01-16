@@ -2,24 +2,22 @@
 env:
   GH_TOKEN: ${{ github.token }}
 name: module4_task1
-on:
+"on":
   push:
+    tags: "1.0.1"
     branches:
       - main
-      - master
-  # https://www.freeformatter.com/cron-expression-generator-quartz.html
   schedule:
-    - cron: "0 0 * * *"
-  # ttps://frontside.com/blog/2020-05-26-github-actions-pull_request/
+    - cron: '0 0 * * *'
   pull_request:
-    types: [opened, reopened, edited, ready_for_review]
+    types: [opened, reopened, synchronize]
 
 permissions: read-all
 
 jobs:
   builds:
     permissions: write-all
-    name: task1
+    name: job1
     runs-on: ubuntu-18.04
 
     steps:
@@ -27,13 +25,11 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 16
-      - name: Hugo
-        run: |
-          cd module4_task1/
-          make build-tools
-      - name: Markdown
+      - name: install hugo
+        run: make -C module4_task1 build-tools
+      - name: install markdown
         run: npm install -g markdownlint-cli
-      - name: Test Makefile
+      - name: Validate Makefile help
         run: |
           cd module4_task1/
           make build
