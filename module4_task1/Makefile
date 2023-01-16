@@ -68,4 +68,4 @@ _zip:
 
 .SILENT:
 help: ## Target check
-
+cat Makefile | grep '##' | tr -d '##' | head -n -1
