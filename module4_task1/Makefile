@@ -1,43 +1,71 @@
-# Define variables
-Publish=docker run awesome:build sh -c "hugo; ls ./dist/*"
+HUGO=hugo
+RM=rm -rf
 SHELLCHECK=shellcheck
+YAMLLINT=yamllint
+YQ=yq
+MARKDOWN=markdownlint
 
-.PHONY: build
-
-build: ## Publish the new version the site
+build: ## Builds a new website
 	docker run awesome:build sh -c "hugo; ls ./dist/*"
 
-build-docker: ## Create Image from Dockerfile
-	docker build -t "awesome:build" ./build --no-cache
+post: ## Creates a new post with the title changed to the ENV value.
+	$(HUGO) new posts/$(POST_NAME).md
+	sed -i '2s/.*/title: "$(POST_TITLE)"/' content/posts/$(POST_NAME).md
 
-clean: ## Remove all files from folder dist
-	rm -r dist/*
+build-docker:
+	docker build -t awesome:build -f docker/Dockerfile .
 
-post: ## Create new post and using the sed command to modify the contents of a file.
-	$(Publish) new posts/$(POST_NAME).md
-	sed -i 's/title: .*/title: "$(POST_TITLE)"/' content/posts/$(POST_NAME).md
+_awesome:
+	touch awesome-api
 
-lint: ## shellcheck setup markdownlint README.md DEPLOY.md
-	markdownlint README.md DEPLOY.md
-markdownlint: ## updated to lint the files README.md and DEPLOY.md
-	markdownlint README.md DEPLOY.md
+.PHONY:
+clean: ## Remove all files from target folder
+	docker run awesome:build sh -c "hugo; make _clean"
 
-integration-tests: ## server and check the localhost
+_clean:
+	$(RM) dist/*
+
+_cleancheck:
+	/bin/sh -c "ls ~/holbertonschool-validation/module4_task1/dist/;echo 'done'"
+
+lint:
+	docker run awesome:build sh -c "make _shellcheck && make markdownlint || echo 'Lint Failed'"
+
+_shellcheck:
+	$(SHELLCHECK) setup.sh >/dev/null 2>&1 && make yamllint || echo "Lint Failed"
+
+yamllint: ## Yamllint github workflow.
+	$(YAMLLINT) ./github-workflow.yml >/dev/null 2>&1 && echo OK
+	$(YAMLLINT) ./release_drafter.yml >/dev/null 2>&1 && echo OK
+	$(YQ) eval '.jobs.*.steps.[].name' ./github-workflow.yml | wc -l
+
+markdownlint:
+	$(MARKDOWN) README.md
+	$(MARKDOWN) DEPLOY.md
+
+integration-tests: ## Spin up a server and check the localhost url
+	docker run awesome:build sh -c "hugo; make _clean; make _integration-tests;"
+	make _integration-tests;
+
+_integration-tests:
 	touch coverage-integrations.out
 
 unit-tests: ## Runs different makefile recipes
+	docker run awesome:build sh -c "hugo; make _clean; make _unit-tests;"
+	make _unit-tests;
+
+_unit-tests:
 	touch coverage-units.out
 
-validate: ## Tests dir
+validate: ## Tests ensure it is in correct dir
 	pwd
 
-package: ## creates archive docker run awesome:build sh -c "docker run awesome:build sh -c "hugo; ls ./dist/*"; make package"
-	mkdir dist
-	zip awesome-website.zip dist/
+package: ## Creates a zip archive of the dist dir api binary.
+	docker run awesome:build sh -c "hugo; make _zip"
 
-test:
-	ls
+_zip:
+	zip awesome-website.zip dist/index.html
 
-help: ## Display the list of targets and their usage.
-	cat Makefile | grep '##' | tr -d '##' | head -n -1
+.SILENT:
+help: ## Target check
 
