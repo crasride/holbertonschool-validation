@@ -10,6 +10,8 @@ RUN apt install zip -y
 RUN curl -L https://github.com/gohugoio/hugo/releases/download/v0.109.0/hugo_extended_0.109.0_linux-amd64.deb -o hugo.deb
 RUN apt install ./hugo.deb
 RUN rm ./hugo.deb
+RUN npm install -g markdownlint-cli
+
 # for test intranet which go hugo golangci-lint
 RUN rm -rf /usr/local/go
 # test make
