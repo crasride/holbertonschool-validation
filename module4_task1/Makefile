@@ -3,7 +3,7 @@ Publish=hugo
 SHELLCHECK=shellcheck
 export PATH
 
-.PHONY: build build-docker build-tools
+.PHONY: build build-docker build-tools tests
 
 build: ## install Hugo , public and create file
 	sudo apt install ./hugo.deb
@@ -15,6 +15,9 @@ build-docker: ## Create Image from Dockerfile
  
 build-tools: ## install hugo
 	sudo apt install ./hugo.deb
+
+test: ## test
+	docker run -i "awesome:build" make -C module4_task1 clean build unit-tests integration-tests
 
 clean: ## Remove folder Public
 	rm -rf ./dist*
