@@ -3,20 +3,22 @@ Publish=hugo
 SHELLCHECK=shellcheck
 export PATH
 
-.PHONY: build buil-docker build tools
+.PHONY: build
 build: ## install Hugo , public and create file
 	sudo apt install ./hugo.deb
 	$(Publish)
 	touch awesome-api
 
+.PHONY: build-docker
 build-docker: ## Create Image from Dockerfile
 	docker build -t "awesome:build" ./build --no-cache
 
+.PHONY: build-tools
 build-tools: ## install hugo
 	sudo apt install ./hugo.deb
 
 clean: ## Remove folder Public
-	rm -rf ./dist"
+	rm -rf ./dist*
 
 post: ## Create new post and using the sed command to modify the contents of a file.
 	$(Publish) new posts/$(POST_NAME).md
@@ -35,7 +37,6 @@ markdownlint: ## updated to lint the files README.md and DEPLOY.md
 shellcheck: ## validate shellcheck
 	$(SHELLCHECK) setup.sh >/dev/null 2>&1 || echo "Lint Failed"
 
-
 integration-tests: ## create files
 	touch coverage-integrations.out
 
@@ -43,7 +44,7 @@ unit-tests: ## create files
 	touch coverage-units.out
 
 validate: ## Tests dir
-	pwd
+	ls dist
 
 package: ## execute build y create file zip
 	make build
