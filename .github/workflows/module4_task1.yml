@@ -38,9 +38,7 @@ jobs:
           make integration-tests
           make validate
           make build-docker
-      - name: test make
-        run: |
-          docker run -i "awesome:build" make -C module4_task1 clean build unit-tests integration-tests
+          make test
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
