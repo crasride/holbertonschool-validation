@@ -5,7 +5,7 @@ SHELLCHECK=shellcheck
 .PHONY: build
 
 build: ## Publish the new version the site
-	$(Publish)
+	hugo
 
 build-docker: ## Create Image from Dockerfile
 	docker build -t "awesome:build" ./build --no-cache

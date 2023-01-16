@@ -17,16 +17,21 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+      - name: Setup
+        run: |
+          cd module4_task1/
+          ./setup.sh
       - name: docker
         run: |
           cd module4_task1/
-          make build-docker
           make build
           make lint
           make unit-tests
           make integration-tests
+      - name: Integration tests
+        run: |
+          cd module4_task0/
           make package
-          echo ${{github.ref}}
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
