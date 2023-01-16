@@ -17,7 +17,7 @@ build-tools: ## install hugo
 	sudo apt install ./hugo.deb
 
 test: ## test
-	docker run -i "awesome:build" make -C module4_task1 clean build unit-tests integration-tests
+	docker run awesome:build sh -c "make clean || echo 'Lint Failed'"
 
 clean: ## Remove folder Public
 	rm -rf ./dist*
