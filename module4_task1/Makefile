@@ -36,7 +36,7 @@ package: ## creates archive docker run awesome:build sh -c "docker run awesome:b
 	zip awesome-website.zip dist/
 
 shellcheck:
-	$(SHELLCHECK) setup.sh >/dev/null 2>&1 && make yamllint || echo "Lint Failed"
+	$(SHELLCHECK) setup.sh >/dev/null 2>&1 || echo "Lint Failed"
 
 help: ## Display the list of targets and their usage.
 	cat Makefile | grep '##' | tr -d '##' | head -n -1
