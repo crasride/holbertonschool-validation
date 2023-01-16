@@ -28,5 +28,3 @@ RUN npm install -g markdownlint-cli
 # for test intranet which go hugo golangci-lint
 RUN rm -rf /usr/local/go
 # test make
-RUN /bin/bash
-
