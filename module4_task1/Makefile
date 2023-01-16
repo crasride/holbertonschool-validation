@@ -3,19 +3,18 @@ Publish=hugo
 SHELLCHECK=shellcheck
 export PATH
 
-.PHONY: build
+.PHONY: build build-docker build-tools
+
 build: ## install Hugo , public and create file
 	sudo apt install ./hugo.deb
 	$(Publish)
 	touch awesome-api
 
-.PHONY: build-docker
 build-docker: ## Create Image from Dockerfile
 	docker build -t "awesome:build" ./build --no-cache
-
-.PHONY: build-tools
+ 
 build-tools: ## install hugo
-	@sudo apt install ./hugo.deb
+	sudo apt install ./hugo.deb
 
 clean: ## Remove folder Public
 	rm -rf ./dist*
