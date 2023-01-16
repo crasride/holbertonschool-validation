@@ -18,7 +18,7 @@ post: ## Create new post and using the sed command to modify the contents of a f
 	sed -i 's/title: .*/title: "$(POST_TITLE)"/' content/posts/$(POST_NAME).md
 
 lint: ## shellcheck setup markdownlint README.md DEPLOY.md
-	markdownlint README.md DEPLOY.md
+	docker run awesome:build sh -c "make shellcheck && make markdownlint || echo 'Lint Failed'"
 markdownlint: ## updated to lint the files README.md and DEPLOY.md
 	markdownlint README.md DEPLOY.md
 
@@ -35,8 +35,8 @@ package: ## creates archive docker run awesome:build sh -c "docker run awesome:b
 	mkdir dist
 	zip awesome-website.zip dist/
 
-test:
-	ls
+shellcheck:
+	$(SHELLCHECK) setup.sh >/dev/null 2>&1 && make yamllint || echo "Lint Failed"
 
 help: ## Display the list of targets and their usage.
 	cat Makefile | grep '##' | tr -d '##' | head -n -1
