@@ -1,4 +1,6 @@
 ---
+env:
+  GH_TOKEN: ${{ github.token }}
 name: module4_task1
 on:
   push:
@@ -8,15 +10,23 @@ on:
   # https://www.freeformatter.com/cron-expression-generator-quartz.html
   schedule:
     - cron: "0 0 * * *"
-  # https://frontside.com/blog/2020-05-26-github-actions-pull_request/
+  # ttps://frontside.com/blog/2020-05-26-github-actions-pull_request/
   pull_request:
     types: [opened, reopened, edited, ready_for_review]
+        
+permissions: read-all
+    
 jobs:
-  module4_task0:
+  builds:
+    permissions: write-all
+    name: task1
     runs-on: ubuntu-18.04
+    
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
       - name: Hugo
         run: |
           cd module4_task1/
