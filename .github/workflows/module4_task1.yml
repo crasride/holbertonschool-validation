@@ -1,35 +1,50 @@
----
+# Define environment variables
 env:
   GH_TOKEN: ${{ github.token }}
+
+# Set the name of the workflow and start
 name: module4_task1
-"on":
+on:
+  # Start for the workflow: 
+  # - when a new tag is pushed with the name "1.0.1"
+  # - when a new push is made to the "main" branch
+  # - every day at midnight (UTC)
   push:
     tags: "1.0.1"
     branches:
       - main
   schedule:
     - cron: '0 0 * * *'
+  # Start when a pull request is opened, re-opened, or updated
   pull_request:
     types: [opened, reopened, synchronize]
 
+# Define the permissions required for the workflow
 permissions: read-all
 
+# Define jobs that the workflow will execute
 jobs:
   builds:
+    # Define the permissions required for this job
     permissions: write-all
-    name: job1
+    name: Building With A Custom Docker Image
     runs-on: ubuntu-18.04
 
     steps:
+      # Checkout the repository
       - uses: actions/checkout@v3
+      # Set up Node.js version 16
       - uses: actions/setup-node@v3
         with:
           node-version: 16
-      - name: install hugo
+      # Install Hugo
+      - name: Hugo
         run: make -C module4_task1 build-tools
-      - name: install markdown
+      # Install markdownlint-cli
+      - name: Markdownlint
         run: npm install -g markdownlint-cli
-      - name: Validate Makefile help
+      # Build, package, test, and validate the project
+      - name: Check Makefile
         run: |
           cd module4_task1/
           make build
@@ -39,6 +54,7 @@ jobs:
           make validate
           make build-docker
           make test
+      # Release the project on GitHub with the tag "1.0.1"
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
@@ -46,12 +62,14 @@ jobs:
           files: |
             module4_task1/awesome-website.zip
             module4_task1/DEPLOY.md
+      # Archive the build if the previous step was successful
       - name: archive build
         if: ${{ success()}}
         uses: actions/upload-artifact@v3
         with:
           name: upload-package
           path: module4_task1/awesome-website.zip
+      # Deploy the project to Netlify
       - name: deploy
         uses: nwtgck/actions-netlify@v1.2
         with:
@@ -63,6 +81,5 @@ jobs:
           enable-commit-comment: true
           overwrites-pull-request-comment: true
         env:
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_
         timeout-minutes: 1
