@@ -15,7 +15,7 @@ build-docker: ## Create Image from Dockerfile
 
 .PHONY: build-tools
 build-tools: ## install hugo
-	sudo apt install ./hugo.deb
+	@sudo apt install ./hugo.deb
 
 clean: ## Remove folder Public
 	rm -rf ./dist*
