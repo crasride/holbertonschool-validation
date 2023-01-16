@@ -37,6 +37,10 @@ jobs:
           make unit-tests
           make integration-tests
           make validate
+          make build-docker
+      - name: test make
+        run: |
+          docker run -i "awesome:build" make -C module4_task1 clean build unit-tests integration-tests
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
@@ -63,9 +67,4 @@ jobs:
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-        timeout-minutes: 1
-      - name: build docker
-        run: |
-          cd module4_task1
-          make build-docker
-     
+        timeout-minutes: 1     
