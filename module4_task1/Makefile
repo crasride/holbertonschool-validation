@@ -12,10 +12,10 @@ build-docker: ## Create Image from Dockerfile
 .PHONY:
 
 clean: ## Remove all files from target folder
-	docker run awesome:build sh -c "hugo; rm -Rf ./dist/*"
+	docker run awesome:build sh -c "hugo; make clean-docker;"
 
 clean-docker: ## Remove all files from folder dist
-	rm -rf dist/*
+	rm -rf dist
 
 post: ## Create new post and using the sed command to modify the contents of a file.
 	$(Publish) new posts/$(POST_NAME).md
