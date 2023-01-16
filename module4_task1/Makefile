@@ -7,12 +7,14 @@ build: ## Publish the new version the site
 	docker run awesome:build sh -c "hugo; ls ./dist/*"
 
 build-docker: ## Create Image from Dockerfile
+
+
 	docker build -t "awesome:build" ./build --no-cache
 
 .PHONY:
 
 clean: ## Remove all files from target folder
-	docker run awesome:build sh -c "rm -rf dist"
+	rm -rf ./dist
 
 #clean-docker: ## Remove all files from folder dist rm -rf dist
 	pwd
