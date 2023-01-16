@@ -1,59 +1,65 @@
-# Define variables
-Publish=hugo
+## Declare variables for used commands
+HUGO=hugo
 SHELLCHECK=shellcheck
-export PATH
 
+## Declare a list of phony targets
 .PHONY: build build-docker build-tools test
 
-build: ## install Hugo , public and create file
+
+build:## Installhugo package, Run the hugo, Create a file
 	sudo apt install ./hugo.deb
-	$(Publish)
+	$(HUGO)
 	touch awesome-api
 
-build-docker: ## Create Image from Dockerfile
+build-docker:## Build a Docker image for the build directory
 	docker build -t "awesome:build" ./build --no-cache
- 
-build-tools: ## install hugo
+
+build-tools:## Install the hugo package
 	sudo apt install ./hugo.deb
 
-test: ## test
+test:## Run the clean target inside a Docker container
 	docker run awesome:build sh -c "make clean || echo 'Lint Failed'"
 
-clean: ## Remove folder Public
+
+clean:## Remove all files in the dist directory
 	rm -rf ./dist*
 
-post: ## Create new post and using the sed command to modify the contents of a file.
-	$(Publish) new posts/$(POST_NAME).md
+post:## Create a new post and set the title
+	$(HUGO) new posts/$(POST_NAME).md
 	sed -i 's/title: .*/title: "$(POST_TITLE)"/' content/posts/$(POST_NAME).md
 
-lint: ## shellcheck setup markdownlint README.md DEPLOY.md
+
+lint: ## Install curl, Install nodejs, Install Markdownlint and verify MD
 	apt install curl -y
 	curl --silent --location https://deb.nodesource.com/setup_16.x | bash -
 	apt install nodejs -y
 	npm install -g markdownlint-cli 1>&2
 	markdownlint README.md DEPLOY.md
 
-markdownlint: ## updated to lint the files README.md and DEPLOY.md
+
+markdownlint: ## Run the markdownlint tool on the README.md and DEPLOY.md files
 	markdownlint README.md DEPLOY.md
 
-shellcheck: ## validate shellcheck
+shellcheck:## Run the shellcheck tool on the setup.sh script
 	$(SHELLCHECK) setup.sh >/dev/null 2>&1 || echo "Lint Failed"
 
-integration-tests: ## create files
+integration-tests:## Create a coverage-integrations.out file
 	touch coverage-integrations.out
 
-unit-tests: ## create files
+unit-tests:## Create a coverage-units.out file
 	touch coverage-units.out
 
-validate: ## Tests dir
+validate:## List the contents of the dist directory
 	ls dist
 
-package: ## execute build y create file zip
+package:## Build the site, Create a dist directory, Create zip archive the dist
 	make build
 	mkdir -p dist
 	zip awesome-website.zip dist
 
+## Suppress command output
 .SILENT:
 
-help: ## Display the list of targets and their usage.
+help: ##Print all lines in the Makefile that contain "##"
+	
 	cat Makefile | grep '##' | tr -d '##' | head -n -1
