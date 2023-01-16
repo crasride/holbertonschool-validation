@@ -15,7 +15,7 @@ clean: ## Remove all files from target folder
 	docker run awesome:build sh -c "hugo; make clean-docker;"
 
 clean-docker: ## Remove all files from folder dist rm -rf dist
-	echo PWD pwd
+	pwd
 	
 
 post: ## Create new post and using the sed command to modify the contents of a file.
