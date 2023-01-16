@@ -24,11 +24,11 @@ jobs:
           node-version: 16
       - name: Hugo
         run: |
-          cd module4_task1 
+          cd module4_task1
           make build-tools
       - name: Markdownlint
         run: npm install -g markdownlint-cli
-      - name: Check Makefile 
+      - name: Check Makefile
         run: |
           cd module4_task1/
           make build
