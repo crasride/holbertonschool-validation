@@ -28,14 +28,12 @@ markdownlint: ## updated to lint the files README.md and DEPLOY.md
 
 integration-tests: ## execute Hugo and create files
 	docker run awesome:build sh -c "hugo; make clean; make integration-docker;"
-	make integration-docker;
 
 integration-docker: ## Create files
 	touch coverage-integrations.out
 
 unit-tests: ## execute Hugo and create files
 	docker run awesome:build sh -c "hugo; make clean; make unit-tests-docker;"
-	make unit-tests-docker;
 
 unit-tests-docker: ## Runs different makefile recipes
 	touch coverage-units.out
