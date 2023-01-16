@@ -1,11 +1,11 @@
 # Define variables
-Publish=hugo
+Publish=docker run awesome:build sh -c "hugo; ls ./dist/*"
 SHELLCHECK=shellcheck
 
 .PHONY: build
 
 build: ## Publish the new version the site
-	hugo
+	docker run awesome:build sh -c "hugo; ls ./dist/*"
 
 build-docker: ## Create Image from Dockerfile
 	docker build -t "awesome:build" ./build --no-cache
@@ -18,7 +18,7 @@ post: ## Create new post and using the sed command to modify the contents of a f
 	sed -i 's/title: .*/title: "$(POST_TITLE)"/' content/posts/$(POST_NAME).md
 
 lint: ## shellcheck setup markdownlint README.md DEPLOY.md
-	ls
+	markdownlint README.md DEPLOY.md
 markdownlint: ## updated to lint the files README.md and DEPLOY.md
 	markdownlint README.md DEPLOY.md
 
@@ -31,7 +31,7 @@ unit-tests: ## Runs different makefile recipes
 validate: ## Tests dir
 	pwd
 
-package: ## creates archive docker run awesome:build sh -c "hugo; make package"
+package: ## creates archive docker run awesome:build sh -c "docker run awesome:build sh -c "hugo; ls ./dist/*"; make package"
 	mkdir dist
 	zip awesome-website.zip dist/
 
