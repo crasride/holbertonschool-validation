@@ -36,8 +36,7 @@ package: ## creates archive docker run awesome:build sh -c "hugo; make package"
 	zip awesome-website.zip dist/
 
 test:
-	touch coverage-units.out
-	touch coverage-integrations.out
+	ls
 
 help: ## Display the list of targets and their usage.
 	cat Makefile | grep '##' | tr -d '##' | head -n -1
