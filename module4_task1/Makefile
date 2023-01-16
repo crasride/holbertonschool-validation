@@ -1,7 +1,7 @@
 # Define variables
 Publish=hugo
 SHELLCHECK=shellcheck
-
+export PATH
 
 build: ## Publish the new version the site
 	docker run awesome:build sh -c "hugo; ls ./dist/*"
