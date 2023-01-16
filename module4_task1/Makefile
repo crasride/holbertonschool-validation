@@ -12,7 +12,7 @@ build-docker: ## Create Image from Dockerfile
 .PHONY:
 
 clean: ## Remove all files from target folder
-	docker run awesome:build sh -c "hugo; rm -rf dist;"
+	docker run awesome:build sh -c "rm -rf dist"
 
 #clean-docker: ## Remove all files from folder dist rm -rf dist
 	pwd
