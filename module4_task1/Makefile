@@ -30,7 +30,7 @@ integration-docker: ## Create files
 	touch coverage-integrations.out
 
 unit-tests: ## execute Hugo and create files
-	build sh -c "hugo; make clean; make unit-tests-docker;"
+	docker run awesome:build sh -c "hugo; make clean; make unit-tests-docker;"
 	make unit-tests-docker;
 
 unit-tests-docker: ## Runs different makefile recipes
