@@ -1,6 +1,6 @@
 ---
 name: module4_task1
-"on":
+on:
   push:
     branches:
       - main
@@ -22,11 +22,13 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 16
-      - name: install hugo
-        run: make -C module4_task1 build-tools
-      - name: install markdown
+      - name: Hugo
+        run: |
+          cd module4_task1 
+          make build-tools
+      - name: Markdownlint
         run: npm install -g markdownlint-cli
-      - name: Validate Makefile help
+      - name: Check Makefile 
         run: |
           cd module4_task1/
           make build
