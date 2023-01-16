@@ -17,18 +17,20 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Setup
+      - name: Hugo
         run: |
           cd module4_task1/
-          ./setup.sh
-      - name: docker
+          make build-tools
+      - name: Markdown
+        run: npm install -g markdownlint-cli
+      - name: Test Makefile
         run: |
           cd module4_task1/
-          make build-docker
-          make lint
           make build
+          make package
           make unit-tests
           make integration-tests
+          make validate
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
@@ -56,3 +58,11 @@ jobs:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
         timeout-minutes: 1
+      - name: build docker
+        run: |
+          cd module4_task1
+          make build-docker
+      - name: test make
+        run: |
+          docker run -i "awesome:build" make -C module4_task1 clean build \
+          unit-tests integration-tests
