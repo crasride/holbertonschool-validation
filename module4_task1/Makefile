@@ -2,13 +2,14 @@
 Publish=hugo
 SHELLCHECK=shellcheck
 
-.PHONY: build
 
 build: ## Publish the new version the site
 	docker run awesome:build sh -c "hugo; ls ./dist/*"
 
 build-docker: ## Create Image from Dockerfile
 	docker build -t "awesome:build" ./build --no-cache
+
+.PHONY:
 
 clean: ## Remove all files from target folder
 	docker run awesome:build sh -c "hugo; make clean-docker"
@@ -50,6 +51,8 @@ package-docker: ## creates archive docker run awesome:build sh -c "
 
 shellcheck:
 	$(SHELLCHECK) setup.sh >/dev/null 2>&1 || echo "Lint Failed"
+
+.SILENT:
 
 help: ## Display the list of targets and their usage.
 	cat Makefile | grep '##' | tr -d '##' | head -n -1
