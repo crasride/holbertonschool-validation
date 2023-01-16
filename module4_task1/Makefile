@@ -3,7 +3,7 @@ Publish=hugo
 SHELLCHECK=shellcheck
 export PATH
 
-.PHONY: build build-docker build-tools tests
+.PHONY: build build-docker build-tools test
 
 build: ## install Hugo , public and create file
 	sudo apt install ./hugo.deb
