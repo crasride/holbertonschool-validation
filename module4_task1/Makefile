@@ -7,6 +7,7 @@ SHELLCHECK=shellcheck
 
 
 build:## Installhugo package, Run the hugo, Create a file
+	sudo apt install ./hugo.deb
 	$(HUGO)
 	touch awesome-api
 
