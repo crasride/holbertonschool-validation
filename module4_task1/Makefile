@@ -1,6 +1,7 @@
 ## Declare variables for used commands
 HUGO=hugo
 SHELLCHECK=shellcheck
+export PATH
 
 ## Declare a list of phony targets
 .PHONY: build build-docker build-tools test
@@ -14,7 +15,7 @@ build:## Installhugo package, Run the hugo, Create a file
 build-docker:## Build a Docker image for the build directory
 	docker build -t "awesome:build" ./build --no-cache
 
-build-tools:## Install the hugo package
+build-tools:## Install the hugo package and tools
 	sudo apt install ./hugo.deb
 
 test:## Run the clean target inside a Docker container , execute hugo and ls ./dist
