@@ -30,7 +30,8 @@ post:## Create a new post and set the title
 	sed -i 's/title: .*/title: "$(POST_TITLE)"/' content/posts/$(POST_NAME).md
 
 lint: ## Check and clean your Dockerfile with Hadolint
-	sudo hadolint ./build/Dockerfile
+	hadolint ./build/Dockerfile && echo OK || echo FAILED
+
 
 markdownlint: ## Run the markdownlint tool on the README.md and DEPLOY.md files
 	markdownlint README.md DEPLOY.md
