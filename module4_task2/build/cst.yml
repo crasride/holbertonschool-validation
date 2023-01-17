@@ -1,14 +1,16 @@
 ---
 schemaVersion: 2.0.0
 
+fileExistenceTests:
+  - name: 'Root'
+    path: '/'
+    shouldExist: true
+
 metadataTest:
-  # Image has expected default metadata
-  env:
-    - key: GOPATH
-      value: /go
-  exposedPorts: []
-  volumes: []
   entrypoint: []
+  cmd: ["/bin/sh"]
+  workdir: "/module4_task2"
+  user: ""
 
 fileExistenceTests:
   # Main binary exists
@@ -22,5 +24,5 @@ commandTests:
   - name: go version
     command: go
     args: ["version"]
-    expectedOutput: ["go version go1.15.8"]
+    expectedOutput: ["go version go1.15.8 linux/amd64"]
     exitCode: 0
