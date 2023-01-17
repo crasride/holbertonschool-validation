@@ -1,0 +1,65 @@
+---
+name: module4_task2
+on:
+  push:
+    branches:
+      - main
+  schedule:
+    - cron: '0 0 * * *'
+  pull_request:
+    types: [opened, reopened, synchronize]
+
+permissions: read-all
+
+jobs:
+  builds:
+    permissions: write-all
+    name: Testing Docker Images
+    runs-on: ubuntu-18.04
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - name: Install Tools
+        run: |
+          cd module4_task2
+          ./setup.sh
+      - name: Check Makefile
+        run: |
+          cd module4_task1/
+          make lint
+          make help
+          make build
+          make build-docker
+          make docker-tests
+          make package
+          echo ${{github.ref}}
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: 1.0.1
+          files: |
+            module4_task2/awesome-website.zip
+            module4_task2/DEPLOY.md
+      - name: archive build
+        if: ${{ success()}}
+        uses: actions/upload-artifact@v3
+        with:
+          name: upload-package
+          path: module4_task2/awesome-website.zip
+      - name: deploy
+        uses: nwtgck/actions-netlify@v1.2
+        with:
+          publish-dir: './module4_task2/dist'
+          production-branch: main
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          deploy-message: '🎉 Published on'
+          enable-pull-request-comment: true
+          enable-commit-comment: true
+          overwrites-pull-request-comment: true
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+        timeout-minutes: 1
