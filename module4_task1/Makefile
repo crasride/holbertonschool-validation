@@ -14,11 +14,11 @@ build-docker:## Build a Docker image for the build directory
 	docker build -t "awesome:build" ./build --no-cache
 
 build-tools:## Install the hugo package and tools
-	sudo apt install ./hugo.deb
 	apt install curl -y
 	curl --silent --location https://deb.nodesource.com/setup_16.x | bash -
 	apt install nodejs -y
 	npm install -g markdownlint-cli 1>&2
+	sudo apt install ./hugo.deb
 
 test:## Run the clean target inside a Docker container , execute hugo and ls ./dist
 	docker run awesome:build sh -c "make clean || echo 'Lint Failed'"
