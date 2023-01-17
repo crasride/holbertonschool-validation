@@ -1,6 +1,7 @@
 ## Declare variables for used commands
 HUGO=hugo
 SHELLCHECK=shellcheck
+export PATH
 
 ## Declare a list of phony targets
 .PHONY: build build-docker build-tools test
@@ -14,12 +15,12 @@ build:## Installhugo package, Run the hugo, Create a file
 build-docker:## Build a Docker image for the build directory
 	docker build -t "awesome:build" ./build --no-cache
 
-build-tools:## Install the hugo package
+build-tools:## Install the hugo package and tools
 	sudo apt install ./hugo.deb
 
-test:## Run the clean target inside a Docker container
+test:## Run the clean target inside a Docker container , execute hugo and ls ./dist
 	docker run awesome:build sh -c "make clean || echo 'Lint Failed'"
-
+	docker run awesome:build sh -c "hugo; ls ./dist/*"
 
 clean:## Remove all files in the dist directory
 	rm -rf ./dist*
@@ -28,14 +29,8 @@ post:## Create a new post and set the title
 	$(HUGO) new posts/$(POST_NAME).md
 	sed -i 's/title: .*/title: "$(POST_TITLE)"/' content/posts/$(POST_NAME).md
 
-
-lint: ## Install curl, Install nodejs, Install Markdownlint and verify MD
-	apt install curl -y
-	curl --silent --location https://deb.nodesource.com/setup_16.x | bash -
-	apt install nodejs -y
-	npm install -g markdownlint-cli 1>&2
-	markdownlint README.md DEPLOY.md
-
+lint: ## Check and clean your Dockerfile with Hadolint
+	hadolint ./build/Dockerfile
 
 markdownlint: ## Run the markdownlint tool on the README.md and DEPLOY.md files
 	markdownlint README.md DEPLOY.md
@@ -56,6 +51,9 @@ package:## Build the site, Create a dist directory, Create zip archive the dist
 	make build
 	mkdir -p dist
 	zip awesome-website.zip dist
+
+docker-tests:  ## Docker Image Testing With Container Structure Tests
+	container-structure-test test --image awesome:build --config ./build/cst.yml
 
 ## Suppress command output
 .SILENT:
