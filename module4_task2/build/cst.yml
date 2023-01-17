@@ -1,19 +1,34 @@
 ---
 schemaVersion: 2.0.0
 
-fileExistenceTests:
-  - name: 'Root'
-    path: '/'
-    shouldExist: true
-
 metadataTest:
+  # Image has expected default metadata
+  env:
+    - key: GOPATH
+      value: /go
+  exposedPorts: []
+  volumes: []
   entrypoint: []
-  cmd: ["/bin/sh"]
-  workdir: "/module4_task2"
-  user: ""
 
-fileContentTests:
-  - name: 'Debian Sources'
-    path: '/etc/apt/sources.list'
-    expectedContents: ['# deb http://snapshot.debian.org/archive/debian/']
-    excludedContents: ['.*gce_debian_mirror.*']
+fileExistenceTests:
+  # Main binary exists
+  - name: go
+    path: /usr/local/go/bin/go
+    shouldExist: true
+    permissions: "-rwxr-xr-x"
+
+commandTests:
+  # Main binary can print its version
+  - name: go version
+    command: go
+    args: ["version"]
+    expectedOutput: ["go version go1.15.8"]
+    exitCode: 0
+  # Can compile a valid "hello world"
+  - name: hello world
+    setup: [["wget", "https://raw.githubusercontent.com/go-training/helloworld/master/main.go"]]
+    command: go
+    args: ["run", "main.go"]
+    expectedOutput: ["Hello World!!"]
+    exitCode: 0
+    teardown: [["rm", "main.go"]]

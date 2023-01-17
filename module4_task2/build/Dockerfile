@@ -1,7 +1,5 @@
 # Dockerfile
-FROM golang:1.15.8-buster
+FROM golang:1.15.8-alpine
 
-WORKDIR /module4_task2
-CMD ["/bin/sh"]
-RUN apt-get --no-install-recommends update \
-  && rm -rf /var/lib/apt/lists/*
+COPY . /module4_task2
+WORKDIR /go/holbertonschool-validation/module4_task2
