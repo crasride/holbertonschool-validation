@@ -39,6 +39,10 @@ jobs:
           make docker-tests
           make package
           echo ${{github.ref}}
+      - name: docker-tests
+        run: |
+         cd module4_task2/ 
+         make docker-tests && echo OK || echo FAILED
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
