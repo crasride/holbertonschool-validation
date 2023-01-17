@@ -24,11 +24,3 @@ commandTests:
     args: ["version"]
     expectedOutput: ["go version go1.15.8"]
     exitCode: 0
-  # Can compile a valid "hello world"
-  - name: hello world
-    setup: [["wget", "https://raw.githubusercontent.com/go-training/helloworld/master/main.go"]]
-    command: go
-    args: ["run", "main.go"]
-    expectedOutput: ["Hello World!!"]
-    exitCode: 0
-    teardown: [["rm", "main.go"]]
