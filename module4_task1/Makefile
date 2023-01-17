@@ -17,9 +17,9 @@ build-docker:## Build a Docker image for the build directory
 build-tools:## Install the hugo package
 	sudo apt install ./hugo.deb
 
-test:## Run the clean target inside a Docker container
+test:## Run the clean target inside a Docker container , execute hugo and ls ./dist
 	docker run awesome:build sh -c "make clean || echo 'Lint Failed'"
-
+	docker run awesome:build sh -c "hugo; ls ./dist/*"
 
 clean:## Remove all files in the dist directory
 	rm -rf ./dist*
@@ -28,14 +28,12 @@ post:## Create a new post and set the title
 	$(HUGO) new posts/$(POST_NAME).md
 	sed -i 's/title: .*/title: "$(POST_TITLE)"/' content/posts/$(POST_NAME).md
 
-
 lint: ## Install curl, Install nodejs, Install Markdownlint and verify MD
 	apt install curl -y
 	curl --silent --location https://deb.nodesource.com/setup_16.x | bash -
 	apt install nodejs -y
 	npm install -g markdownlint-cli 1>&2
 	markdownlint README.md DEPLOY.md
-
 
 markdownlint: ## Run the markdownlint tool on the README.md and DEPLOY.md files
 	markdownlint README.md DEPLOY.md
