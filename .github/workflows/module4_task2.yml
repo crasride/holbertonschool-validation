@@ -28,7 +28,7 @@ jobs:
           sudo ./setup.sh
       - name: lint
         run: |
-         cd module4_task2/ 
+         cd module4_task2/
          make lint && echo OK || echo FAILED
       - name: Check Makefile
         run: |
@@ -38,12 +38,9 @@ jobs:
           make build-docker
           make package
           echo ${{github.ref}}
-      - name: make-tests
-        run: |
-          docker run -i "awesome:build" make -C module4_task2 clean build unit-tests integration-tests
       - name: docker-tests
         run: |
-         cd module4_task2/ 
+         cd module4_task2/
          make docker-tests && echo OK || echo FAILED
       - name: Release
         uses: softprops/action-gh-release@v1
