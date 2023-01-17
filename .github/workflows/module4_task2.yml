@@ -36,7 +36,6 @@ jobs:
           make help
           make build
           make build-docker
-          make docker-tests
           make package
           echo ${{github.ref}}
       - name: docker-tests
