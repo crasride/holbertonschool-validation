@@ -8,7 +8,6 @@ export PATH
 
 
 build:## Installhugo package, Run the hugo, Create a file
-	sudo apt install ./hugo.deb
 	$(HUGO)
 	touch awesome-api
 
@@ -45,18 +44,14 @@ unit-tests:## Create a coverage-units.out file
 	touch coverage-units.out
 
 validate:## List the contents of the dist directory
-	ls dist
+	pwd
 
 package:## Build the site, Create a dist directory, Create zip archive the dist
 	make build
-	mkdir -p dist
 	zip awesome-website.zip dist
 
 docker-tests:  ## Docker Image Testing With Container Structure Tests
 	container-structure-test test --image awesome:build --config ./build/cst.yml
-
-## Suppress command output
-.SILENT:
 
 help: ##Print all lines in the Makefile that contain "##"
 	
