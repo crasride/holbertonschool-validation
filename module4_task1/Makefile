@@ -1,6 +1,7 @@
 ## Declare variables for used commands
 HUGO=hugo
 SHELLCHECK=shellcheck
+export PATH
 
 ## Declare a list of phony targets
 .PHONY: build build-docker build-tools test
