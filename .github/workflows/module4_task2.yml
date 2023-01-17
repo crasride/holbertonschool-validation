@@ -27,7 +27,9 @@ jobs:
           cd module4_task2
           sudo ./setup.sh
       - name: lint
-        run: make lint -C module4_task2 && echo OK || echo FAILED
+        run: |
+         cd module4_task2/ 
+         make lint && echo OK || echo FAILED
       - name: Check Makefile
         run: |
           cd module4_task1/
