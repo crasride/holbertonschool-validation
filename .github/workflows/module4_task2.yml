@@ -38,6 +38,9 @@ jobs:
           make build-docker
           make package
           echo ${{github.ref}}
+      - name: make-tests
+        run: |
+          docker run -i "awesome:build" make -C module4_task2 clean build unit-tests integration-tests
       - name: docker-tests
         run: |
          cd module4_task2/ 
