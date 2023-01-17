@@ -51,7 +51,7 @@ package:## Build the site, Create a dist directory, Create zip archive the dist
 	zip awesome-website.zip dist
 
 docker-tests:  ## Docker Image Testing With Container Structure Tests
-	container-structure-test test --image awesome:build --config ./build/cst.yml
+	container-structure-test test --image golang:1.15.8 --config ./build/cst.yml
 
 help: ##Print all lines in the Makefile that contain "##"
 	
