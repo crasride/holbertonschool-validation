@@ -22,10 +22,10 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 16
-      - name: Install Tools
+      - name: install tools
         run: |
           cd module4_task2
-          ./setup.sh
+          sudo ./setup.sh
       - name: Check Makefile
         run: |
           cd module4_task1/
