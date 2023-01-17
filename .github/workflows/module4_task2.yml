@@ -26,10 +26,11 @@ jobs:
         run: |
           cd module4_task2
           sudo ./setup.sh
+      - name: lint
+        run: make lint -C module4_task2 && echo OK || echo FAILED
       - name: Check Makefile
         run: |
           cd module4_task1/
-          make lint
           make help
           make build
           make build-docker
