@@ -32,12 +32,13 @@ jobs:
         run: |
           cd module4_task1/
           make build
-          make package
           make unit-tests
           make integration-tests
           make validate
           make build-docker
           make test
+          make package
+          echo ${{github.ref}}
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
