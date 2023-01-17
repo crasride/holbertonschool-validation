@@ -145,3 +145,20 @@ Your predecessor left to travel the world, and the expectations are high on your
 ability to help "Awesome Inc.” to grow a culture of collaboration with a
 technical mindset, while managing their existing web services. That’s exactly
 what DevOps is about!
+
+# Workflow
+
+- install tools
+- lint
+- help
+- build
+- build-docker
+- docker-tests
+
+# Build Workflow
+
+- package
+- relase
+- archive build
+- upload-package
+- deploy
