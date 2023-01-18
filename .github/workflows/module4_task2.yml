@@ -40,7 +40,7 @@ jobs:
         run: |
           cd module4_task2/
           make help
-          make unit-test
+          make unit-tests
           make integration-tests
           make build
           make build-docker
