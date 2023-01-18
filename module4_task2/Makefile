@@ -49,7 +49,7 @@ validate:## List the contents of the dist directory
 package:## Build the site, Create a dist directory, Create zip archive the dist
 	make build
 	zip awesome-website.zip dist
-# container-structure-test test --image awesome:build --config ./build/cst.yml
+
 docker-tests:  ## Docker Image Testing With Container Structure Tests
 	container-structure-test test --image awesome:build --config ./build/cst.yml
 
