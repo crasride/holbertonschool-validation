@@ -7,10 +7,10 @@ fileExistenceTests:
     shouldExist: true
 
 metadataTest:
-  entrypoint: []
-  cmd: ["/bin/sh"]
+  entrypoint: ["/module4_task2/ls"]
+  cmd: []
   workdir: "/module4_task2"
-  user: ""
+  user: "jose.dfernandez@yahoo.fr"
 
 commandTests:
   # Main binary can print its version
