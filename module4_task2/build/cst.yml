@@ -1,28 +1,42 @@
 ---
-schemaVersion: 2.0.0
-
-fileExistenceTests:
-  - name: 'Root'
-    path: '/'
-    shouldExist: true
-
-metadataTest:
-  entrypoint: []
-  cmd: ["/bin/sh"]
-  workdir: "/module4_task2"
-  user: ""
-
-fileExistenceTests:
-  # Main binary exists
-  - name: go
-    path: /usr/local/go/bin/go
-    shouldExist: true
-    permissions: "-rwxr-xr-x"
-
+schemaVersion: '2.0.0'
 commandTests:
-  # Main binary can print its version
-  - name: go version
-    command: go
-    args: ["version"]
-    expectedOutput: ["go version go1.15.8 linux/amd64"]
-    exitCode: 0
+    - name: 'apt-get'
+      command: 'apt-get'
+      args: ['help']
+      excludedError: ['.*FAIL.*']
+      expectedOutput: ['.*Usage.*']
+    - name: 'apt-config'
+      command: 'apt-config'
+      args: ['dump']
+      expectedOutput: ['APT::AutoRemove']
+fileContentTests:
+    - name: 'Debian Sources'
+      excludedContents: ['.*gce_debian_mirror.*']
+      expectedContents: ['.*archive\.ubuntu\.com.*']
+      path: '/etc/apt/sources.list'
+    - name: 'Passwd file'
+      expectedContents: ['root:x:0:0:root:/root:/bin/bash']
+      path: '/etc/passwd'
+fileExistenceTests:
+    - name: 'Root'
+      path: '/'
+      shouldExist: true
+      uid: 0
+      gid: 0
+    - name: 'Date'
+      path: '/bin/date'
+      isExecutableBy: 'owner'
+    - name: 'Hosts File'
+      path: '/etc/hosts'
+      shouldExist: true
+    - name: 'Machine ID'
+      path: '/etc/machine-id'
+    - name: 'Dummy File'
+      path: '/etc/dummy'
+      shouldExist: false
+licenseTests:
+    - debian: false
+      files:
+    - "/usr/share/doc/ubuntu-keyring/copyright"
+    - "/usr/share/doc/dash/copyright"
