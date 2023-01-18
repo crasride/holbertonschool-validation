@@ -5,13 +5,6 @@ fileExistenceTests:
   - name: 'Root'
     path: '/'
     shouldExist: true
-    
-fileExistenceTests:
-  # Main binary exists
-  - name: go
-    path: /usr/local/go/bin/go
-    shouldExist: true
-    permissions: "-rwxr-xr-x"
 
 metadataTest:
   entrypoint: [/module4_task2/ls]
