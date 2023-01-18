@@ -10,7 +10,7 @@ metadataTest:
   entrypoint: [/module4_task2/ls]
   cmd: []
   workdir: "/module4_task2"
-  user: ""
+  user: "docker"
 
 commandTests:
   # Main binary can print its version
