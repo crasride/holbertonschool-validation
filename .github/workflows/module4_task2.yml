@@ -43,7 +43,7 @@ jobs:
           make unit-tests
           make integration-tests
           make build
-          make build-docker
+          make docker-build
           make package
           echo ${{github.ref}}
       - name: docker-tests
