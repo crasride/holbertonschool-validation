@@ -4,7 +4,7 @@ SHELLCHECK=shellcheck
 export PATH
 
 ## Declare a list of phony targets
-.PHONY: build build-docker build-tools test
+.PHONY: build docker-build build-tools test
 
 
 build:## Installhugo package, Run the hugo, Create a file
