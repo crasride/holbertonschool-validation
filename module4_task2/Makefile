@@ -4,14 +4,14 @@ SHELLCHECK=shellcheck
 export PATH
 
 ## Declare a list of phony targets
-.PHONY: build docker-build build-tools test
+.PHONY: build build-docker build-tools test
 
 
 build:## Installhugo package, Run the hugo, Create a file
 	$(HUGO)
 	touch awesome-api
 
-docker-build:## Build a Docker image for the build directory
+build-docker:## Build a Docker image for the build directory
 	docker build -t "awesome:build" ./build --no-cache
 
 build-tools:## Install the hugo package and tools
