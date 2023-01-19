@@ -11,7 +11,7 @@ build:## Installhugo package, Run the hugo, Create a file
 	$(HUGO)
 	touch awesome-api
 
-build-docker:## Build a Docker image for the build directory
+docker-build:## Build a Docker image for the build directory
 	docker build -t "awesome:build" ./build --no-cache
 
 build-tools:## Install the hugo package and tools
