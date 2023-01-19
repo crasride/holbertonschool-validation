@@ -152,7 +152,7 @@ what DevOps is about!
 - lint
 - help
 - build
-- build-docker
+- docker-build
 - docker-tests
 
 # Build Workflow
