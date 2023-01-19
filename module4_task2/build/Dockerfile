@@ -1,5 +1,5 @@
 # Dockerfile
-FROM golang:1.15.8-buster
+FROM golang:1.15.8-alpine
 
 WORKDIR /module4_task2
 COPY . .
