@@ -8,7 +8,7 @@ fileExistenceTests:
 
 metadataTest:
   entrypoint: []
-  cmd: []
+  cmd: ["/bin/sh"]
   workdir: "/module4_task2"
   user: ""
 
