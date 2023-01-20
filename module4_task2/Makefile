@@ -51,9 +51,6 @@ package:## Build the site, Create a dist directory, Create zip archive the dist
 	zip awesome-website.zip dist
 
 docker-tests:  ## Docker Image Testing With Container Structure Tests
-	curl -LO https://storage.googleapis.com/container-structure-test/latest/container-structure-test-linux-amd64
-	chmod +x container-structure-test-linux-amd64
-	sudo mv container-structure-test-linux-amd64 /usr/local/bin/container-structure-test
 	container-structure-test test --image "awesome:build" --config ./build/cst.yml
 
 help: ##Print all lines in the Makefile that contain "##"
