@@ -13,13 +13,12 @@ commandTests:
           args: ["--version"]
           expectedOutput: ["openjdk 11.*"]
 
-
 fileExistenceTests:
         - name: 'plugins.txt'
           path: './jenkins/'
           shouldExist: true
 
 fileContestTests:
-  - name: 'Plug in tests'
-    path: 'jenkins/plugins.txt'
-    expectedContents: ['*github:*']
+        - name: 'Plug in tests'
+          path: 'jenkins/plugins.txt'
+          expectedContents: ['*github:*']
