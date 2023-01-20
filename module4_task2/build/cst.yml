@@ -1,0 +1,27 @@
+---
+schemaVersion: 2.0.0
+
+fileExistenceTests:
+  - name: 'Root'
+    path: '/'
+    shouldExist: true
+
+metadataTest:
+  entrypoint: [/module4_task2/ls]
+  cmd: []
+  workdir: "/module4_task2"
+  user: ""
+
+commandTests:
+  # Main binary can print its version
+  - name: go version
+    command: go
+    args: ["version"]
+    expectedOutput: ["go version go1.15.8"]
+    exitCode: 0
+
+fileContentTests:
+  - name: 'Debian Sources'
+    path: '/etc/apt/sources.list'
+    expectedContents: ['# deb http://snapshot.debian.org/archive/debian/']
+    excludedContents: ['.*gce_debian_mirror.*']
