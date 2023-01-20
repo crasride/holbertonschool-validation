@@ -1,11 +1,5 @@
 FROM jenkins/jenkins:lts-jdk11
 
-# work directory path
-WORKDIR /module6_task0
-
-# user name
-USER jenkins
-
 # do not change the administrator password 
 ENV JAVA_OPTS="-Djenkins.install.runSetupWizard=false"
 
