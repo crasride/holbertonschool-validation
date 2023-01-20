@@ -1,0 +1,18 @@
+---
+schemaVersion: 2.0.0
+
+commandTests:
+        
+        - name: 'plugins.txt'
+          path: './jenkins/'
+          shouldExist: true
+
+        - name: "Java is installed"
+          command: "which"
+          args: ["java"]
+          expectedOutput: ["/opt/java/openjdk/bin/java"]
+
+        - name: "Java version is correct"
+          command: "java"
+          args: ["--version"]
+          expectedOutput: ["openjdk 11.0.17"]
