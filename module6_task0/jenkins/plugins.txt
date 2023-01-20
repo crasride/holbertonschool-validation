@@ -1,5 +1,1 @@
 github:1.36.1
-git:5.0.0
-git-client:4.0.0
-git-server:99.va_0826a_b_cdfa_d
-pipeline-utility-steps:2.14.0
